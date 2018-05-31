@@ -1,20 +1,12 @@
-// server.js
-// Для начала установим зависимости.
-const http = require('http');
-const routing = require('./routing');
-
-
-let server = new http.Server(function(req, res) {
-  // API сервера будет принимать только POST-запросы и только JSON, так что записываем
-  // всю нашу полученную информацию в переменную jsonString
-  var jsonString = '';
-  res.setHeader('Content-Type', 'application/json');
-  req.on('data', (data) => { // Пришла информация - записали.
-    jsonString += data;
-  });
-
-  req.on('end', () => { // Информации больше нет - передаём её дальше.
-    routing.define(req, res, jsonString); // Функцию define мы ещё не создали.
-  });
+const express = require('express');
+const MongoClient = require('mongodb').MongoClient;
+const bodyParser = require('body-parser');
+const app = express();
+const port = 8000;
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+require('./app/routes')(app, {});
+app.listen(port, () => {
+  console.log('We are live on ' + port);
 });
-server.listen(8000, '192.168.150.110');

@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/Vchekryzhov/machine-info-server/issues"
   },
-  "homepage": "https://github.com/Vchekryzhov/machine-info-server#readme"
+  "homepage": "https://github.com/Vchekryzhov/machine-info-server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.0-beta4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
 }
