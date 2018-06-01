@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+language: node_js
+
+after_success:
+- docker build -t node-docker-dev .
+- docker run --rm -it -p 8080:8080 node-docker-dev
