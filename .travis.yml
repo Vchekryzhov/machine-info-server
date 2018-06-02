@@ -13,8 +13,8 @@ language: node_js
 # - docker build -t node-docker-dev .
 # - docker run --rm -it -p 8080:8080 node-docker-dev
 after_success:
-  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-  - export REPO= vchekryzhov/machine-info-server
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO= $DOCKER_USER/machine-info-server
   - export TAG=`if [ "$TRAVIS_BRADANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker build -f Dockerfile -t $REPO .
   - docker push $REPO
