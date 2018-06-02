@@ -26,3 +26,8 @@ sudo apt-get update
 sudo apt-get -y install docker-engine
 5
 docker run hello-world
+
+
+ЗАПУСК КОНТЕЙНЕРА НА РАЗБЕРИ
+docker pull vchekryzhov/machine-info-server
+docker run --rm -it -p 8080:8080 vchekryzhov/machine-info-server

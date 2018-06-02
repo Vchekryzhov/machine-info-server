@@ -1,31 +1,20 @@
-# ---- Базовый Node ----
-FROM node:carbon AS base
+FROM node:carbon
+
 # Создать директорию app
 WORKDIR /app
 
-# ---- Зависимости ----
-FROM base AS dependencies
-# Используется символ подстановки для копирования как package.json, так и package-lock.json
+# Установить nodemon для горячей перезагрузки
+RUN npm install -g nodemon
+
+# Установить зависимости приложения
+# Используется символ подстановки для копирования как package.json, так и package-lock.json,
+# работает с npm@5+
 COPY package*.json ./
-# Установить зависимости приложения, включая предназначенные для разработки ('devDependencies')
+
 RUN npm install
 
-# ---- Скопировать файлы/билд ----
-FROM dependencies AS build
-WORKDIR /app
+# Скопировать исходники приложения
 COPY src /app
-# Собрать статические файлы react/vue/angular
-# RUN npm run build
 
-# --- Выпуск, используя Alpine ----
-FROM node:8.9-alpine AS release
-# Создать директорию app
-WORKDIR /app
-# Необязательно
-# RUN npm -g install serve
-COPY --from=dependencies /app/package.json ./
-# Установить зависимости приложения
-RUN npm install --only=production
-COPY --from=build /app ./
-# CMD ["serve", "-s", "dist", "-p", "8080"]
-CMD ["node", "server.js"]
+EXPOSE 8080
+CMD [ "nodemon", "server.js" ]
