@@ -17,6 +17,17 @@ COPY src /app
 # Собрать статические файлы react/vue/angular
 # RUN npm run build
 
+FROM hypriot/rpi-alpine-scratch
+
+RUN apk update && \
+apk upgrade && \
+apk add bash && \
+rm -rf /var/cache/apk/*
+
+COPY qemu-arm-static /usr/bin/qemu-arm-static
+
+CMD ["/bin/bash"]
+
 # --- Выпуск, используя Alpine ----
 FROM node:8.9-alpine AS release
 # Создать директорию app
