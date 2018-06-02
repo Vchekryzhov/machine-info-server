@@ -14,7 +14,7 @@ language: node_js
 # - docker run --rm -it -p 8080:8080 node-docker-dev
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-  - export REPO=amaksimov/c2_vm_ws
+  - export REPO= vchekryzhov/machine-info-server
   - export TAG=`if [ "$TRAVIS_BRADANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker build -f Dockerfile -t $REPO:$COMMIT .
   - docker tag $REPO:$COMMIT $REPO:$TAG
