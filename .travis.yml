@@ -2,9 +2,21 @@ sudo: required
 
 services:
   - docker
-
+env:
+  global:
+    - secure: "nVyNAXb7ZtZ1LgY2t213qJ2AQvs3jmVdQOMC4kBy5Y8H8ZTL23ads/+3sB8Feezw27Zd33dL0WT/rqfJyzxkMo2ofk0bGr6V7TPdZ5qxzhMgidtrYAhm0HB78PxJFaEXjh5GgrD5Lfa41IbCxOuwyonODVTX3cn0MHCyDNh+C8Jmyuq62shI5jDmmfw4Q5jsNFX3+xsdB3e/0QRdU2U1MHR6lw3N7j7CMmL27txvqLpFSAb8aQ7T5plmAwriqRkLUWdB64eatEdHyMd1k8fXsKexlt+NySX1NohAz6epg78Tu+oxTj7n9Z2kpEoU4JDk+ntBnfKwdAEqRDXYxyj/OoQ/yPADqY9zWzacCaQYcK/GhKiHY365ipRRPxY0Jq/qq7/qFIHSxuncOpdfQVfuKMNqQ3kpdzAifwkwypS4NRvPjDzL/prgf28lLelvwEXNG/jXGpKP9hrKyDpZA65KdoMqHNm/TS6hyPqhGxQ+7s6/CjLYUfdNMp/dUK7XqVGaqvzek0Jivtg3sHTQ13C3EW7mGi24J3IrdnoStgPzWlAig83mpg/BXXymluWI6b+e7vMsbTtSJaSsmDFbIhRUM73m1FcnmHrkEq/Ho67fgeZVWSYu68wx8gDalDryM995zneTGyC7vmiITyvBv8icEOUZ/EJHfB3jW0E8r3fn634=" # DOCKER_EMAIL
+    - secure: "IvMTKMkIjJyuO2E8eP8/PrGex84kWiE3UUt3qjwOZcDh9QOgrtO/zt9u54y4+IiZE3EPXdrVu8ikhLILlUbMmpUJuoiyzuKJ16nvFFLrbDgFlGsbElvnfjg7Lrfj7gtB+1I1ItjEBFsRIe0sVbowzaqmfMBfkzhMji36iNhf1FwISuN9VJ5EQtZRHo7O6Ot9DXz2LHUwJGwK66I7P1WFTPyxgN0RzDCk17FEzralj68fh/fAs0ToWNpx8NKlFzHvOVrrQnyQq0V2OmpwQW+ydINMawKbNQwEiOWlcKU8/oeP7blnApEuTkN1ZyIFvm9FDEs0Xn37Spth6ZqObAbDmDOs8k6FmhSy2BRs6AUbB3AONJkpuXL87Zg4ylsVyYsUqsT0T62nlw8CSuzrSn6yiM4xv/aleUHe2SVdU+AOeRCaM06goXb8CjbSDm8X6CL5eNXpy2IFYIZo24yqvA3oJDpCLAvHyyWmz6S+OlGC1kDbVey2a20+EMSsSYxeuO33tJwlBfiPvColMkc9bhi+XPA7R9XjnEun1CM+MjyqGcdT7kQMasqIHm5wyFTS+cyyYKiu8MVjJZ6Pu8SIo7vRae61r8IDf0r/Z965+Q5PhXFKMQ6/4DpYL9kXykLQJrlTZdTSDrMSXWsJ0opCNK0C6eixiFrsgg1BdEr7Otv4XZo=" # DOCKER_USER
+    - secure: "NgwnU3Qib//097Y5QzTIy34yGLF4SXK7GFftDhSLag6kPpFQzAEhmiQ4f87jOKgw6ahpnkNOxHNa4/EtONxbJM2WB3/vCB62OdheC444PdFTb+Ok+lZWRt10Kz7z3BF7m50/vzntoX3PRDUSXQVx4jTdZJTzCc+MRXEVTnAZQS1G1E+Kl49my8nC1f+BoBoxR4RV9qAobwUH16YtlgZ4O+O5brotnKzzcOAkXe6/xGfFgIQGSBu2l2IeBIWEb2uTkrgfJGgosMsrPnKXxPsaFjmUFOrRMLs155csfbyy+r6A+Oy5Hp+QyCqPXSIzse8wafKrG0sPMV7J42EiHbUkd8MKtEsxDdLermi/JxtybDU17KvG1Vb82p/ayIXiVxeov5R83T6fC27Z9fQ8Qrm7VXqzHv63PzJBfvEiwM+xexqDSwpKUwJwgfENq6ndStw9GcviyQDuX5qbzSe1QFj+PlXfSG45261skSv6QRO+VqilVdZo1173ZqHstc+mGFZktO8cwM2UgzImDf/FKACZAwYRQ+TzWOXYvxxeUlaW55EfVLSvI9E2Ifz8/+ptRQfkkpQBUs/bfE2Kswj09fz4M/eFPHj8iKjdzaK43NB6Y6hqgrpSBi335LM/zx1kaQ9YQhj9/E2lL3prd7UNEZyrOtYT0qxgnm26MKQIcp23OtI=" # DOCKER_PASS
+    - COMMIT=${TRAVIS_COMMIT::8}
 language: node_js
-
+# after_success:
+# - docker build -t node-docker-dev .
+# - docker run --rm -it -p 8080:8080 node-docker-dev
 after_success:
-- docker build -t node-docker-dev .
-- docker run --rm -it -p 8080:8080 node-docker-dev
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=amaksimov/c2_vm_ws
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
