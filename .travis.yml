@@ -9,9 +9,6 @@ env:
     - secure: "NgwnU3Qib//097Y5QzTIy34yGLF4SXK7GFftDhSLag6kPpFQzAEhmiQ4f87jOKgw6ahpnkNOxHNa4/EtONxbJM2WB3/vCB62OdheC444PdFTb+Ok+lZWRt10Kz7z3BF7m50/vzntoX3PRDUSXQVx4jTdZJTzCc+MRXEVTnAZQS1G1E+Kl49my8nC1f+BoBoxR4RV9qAobwUH16YtlgZ4O+O5brotnKzzcOAkXe6/xGfFgIQGSBu2l2IeBIWEb2uTkrgfJGgosMsrPnKXxPsaFjmUFOrRMLs155csfbyy+r6A+Oy5Hp+QyCqPXSIzse8wafKrG0sPMV7J42EiHbUkd8MKtEsxDdLermi/JxtybDU17KvG1Vb82p/ayIXiVxeov5R83T6fC27Z9fQ8Qrm7VXqzHv63PzJBfvEiwM+xexqDSwpKUwJwgfENq6ndStw9GcviyQDuX5qbzSe1QFj+PlXfSG45261skSv6QRO+VqilVdZo1173ZqHstc+mGFZktO8cwM2UgzImDf/FKACZAwYRQ+TzWOXYvxxeUlaW55EfVLSvI9E2Ifz8/+ptRQfkkpQBUs/bfE2Kswj09fz4M/eFPHj8iKjdzaK43NB6Y6hqgrpSBi335LM/zx1kaQ9YQhj9/E2lL3prd7UNEZyrOtYT0qxgnm26MKQIcp23OtI=" # DOCKER_PASS
     - COMMIT=${TRAVIS_COMMIT::8}
 language: node_js
-# after_success:
-# - docker build -t node-docker-dev .
-# - docker run --rm -it -p 8080:8080 node-docker-dev
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=vchekryzhov/machine-info-server
