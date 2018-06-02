@@ -26,8 +26,6 @@ rm -rf /var/cache/apk/*
 
 COPY qemu-arm-static /usr/bin/qemu-arm-static
 
-CMD ["/bin/bash"]
-
 # --- Выпуск, используя Alpine ----
 FROM node:8.9-alpine AS release
 # Создать директорию app
