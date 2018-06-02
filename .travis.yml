@@ -16,6 +16,6 @@ after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO= $DOCKER_USER/machine-info-server
   - export TAG=`if [ "$TRAVIS_BRADANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - echo $REPO
+  - echo REPO
   - docker build -f Dockerfile -t $REPO .
   - docker push $REPO
