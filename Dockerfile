@@ -28,4 +28,4 @@ COPY --from=dependencies /app/package.json ./
 RUN npm install --only=production
 COPY --from=build /app ./
 # CMD ["serve", "-s", "dist", "-p", "8080"]
-CMD ["nodemon", "server.js"]
+CMD ["npm", "run","start"]
