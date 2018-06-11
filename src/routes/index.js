@@ -27,7 +27,7 @@ module.exports = function(app, db) {
     console.log(req.params);
     console.log(data);
     // res.send(data.machine[req.params[0]])
-    res.send('testOK')
+    res.send('testOKkkkk')
   });
   app.get('/set', (req, res) => {
     console.log(req);
