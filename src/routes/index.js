@@ -26,7 +26,8 @@ module.exports = function(app, db) {
   app.get('/get/*', (req, res) => {
     console.log(req.params);
     console.log(data);
-    res.send(data.machine[req.params[0]])
+    // res.send(data.machine[req.params[0]])
+    res.send('asdasdasd')
   });
   app.get('/set', (req, res) => {
     console.log(req);
