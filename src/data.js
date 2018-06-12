@@ -3,10 +3,16 @@ class Data {
     this.machine = {};
   }
   // { id: '110', vel: 'vel1', speed: 'speed1' }
-  setData(data) {
-    this.machine = Object.assign(this.machine, {
-        data.id: data
-      };
-    }
+  set(data) {
+    let id = data['id'];
+    delete data['id'];
+    let new_data = {};
+    new_data[id] = data;
+    this.machine = Object.assign(this.machine, new_data);
   }
-  export data = new Data;
+  get(id) {
+    return this.machine[id]
+  }
+}
+
+export let data = new Data;

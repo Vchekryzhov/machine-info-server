@@ -27,11 +27,6 @@ sudo apt-get -y install docker-engine
 5
 docker run hello-world
 
-
 ЗАПУСК КОНТЕЙНЕРА НА РАЗБЕРИ
 docker pull vchekryzhov/machine-info-server
 docker run --rm -it -p 8080:8080 vchekryzhov/machine-info-server
-
-ПРИ ПЕРВОМ ЗАПУСКЕ НА РАЗБЕРИ ДОБВАИТЬ ФАЙЛ .git/hooks/pos-merge
-#!/bin/bash
-sh ./build2run_docker.sh

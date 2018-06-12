@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-
   "scripts": {
     "test": "",
-    "start":"nodemon src/server.js"
+    "start": "nodemon src/server.js --exec babel-node --presets es2015,stage-2"
   },
   "repository": {
     "type": "git",
@@ -19,7 +18,11 @@
   },
   "homepage": "https://github.com/Vchekryzhov/machine-info-server#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.18.3",
+    "dgram": "^1.0.1",
     "express": "^4.16.3",
     "mongodb": "^3.1.0-beta4"
   },

@@ -10,3 +10,5 @@ require('./routes')(app, {});
 app.listen(port, () => {
   console.log('We are live on ' + port);
 });
+
+require('./udp.js')
