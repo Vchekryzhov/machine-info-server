@@ -18,8 +18,9 @@ module.exports = function(app, db) {
       "test1": 'test'
     })
   });
-  app.post('/set', (req, res) => {
-    data.set(req.body);
+  app.get('/set', (req, res) => {
+    data.set(req.query);
+    console.log('set');
     res.send('ok')
   });
 };
