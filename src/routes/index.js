@@ -18,10 +18,8 @@ module.exports = function(app, db) {
       "test1": 'test'
     })
   });
-  app.get('/set', (req, res) => {
-    console.log(req.query);
-    data.set(req.query);
-    console.log(data.machine);
-    res.send('{"odin":"dva"}')
+  app.post('/set', (req, res) => {
+    data.set(req.body);
+    res.send('ok')
   });
 };
