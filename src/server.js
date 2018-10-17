@@ -5,10 +5,11 @@ const app = express();
 const port = 8080;
 app.use(bodyParser.urlencoded({
   extended: true
-}));
+}) );
 require('./routes')(app, {});
+app.use('/pdf', express.static('src/pdf') );
 app.listen(port, () => {
   console.log('We are live on ' + port);
 });
 
-require('./udp.js')
+require('./udp.js');
