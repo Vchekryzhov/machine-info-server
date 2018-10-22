@@ -8,7 +8,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }) );
 require('./routes')(app, {});
-app.use('/pdf', express.static(process.cwd()+'/pdf') );
+
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
+console.log(appDir);
+
+app.use('/pdf', express.static(appDir+'/pdf') );
 app.listen(port, () => {
   console.log('We are live on ' + port);
 });
